@@ -2,7 +2,6 @@
 
 PUBLISH_REMOTE ?= origin
 PUBLISH_BRANCH ?= main
-PUBLISH_REPO ?= paz-for-congress/analysis
 PUBLISH_SOURCE ?= dist/encrypted/campaign_eda.html
 PUBLISH_TARGET ?= index.html
 PUBLISH_MESSAGE ?= Update encrypted analysis page
@@ -42,9 +41,7 @@ publish: encrypt
 	else \
 		git commit -m "$(PUBLISH_MESSAGE)"; \
 		git push "$(PUBLISH_REMOTE)" HEAD:"$(PUBLISH_BRANCH)"; \
-		gh api "repos/$(PUBLISH_REPO)/pages/builds" -X POST >/dev/null \
-			&& echo "Queued GitHub Pages build." \
-			|| echo "Pushed; GitHub Pages should build from the push."; \
+		echo "Pushed; GitHub Actions will deploy GitHub Pages."; \
 		echo "Published https://paz-for-congress.github.io/analysis/"; \
 	fi
 
